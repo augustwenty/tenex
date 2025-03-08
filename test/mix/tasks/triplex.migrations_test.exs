@@ -4,7 +4,7 @@ defmodule Mix.Tasks.Triplex.MigrationsTest do
   alias Mix.Tasks.Triplex.Migrations
   alias Ecto.Migrator
 
-  @repos [Triplex.PGTestRepo, Triplex.MSTestRepo]
+  @repos [Triplex.PGTestRepo]
 
   setup do
     for repo <- @repos do

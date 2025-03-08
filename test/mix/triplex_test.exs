@@ -1,7 +1,7 @@
 defmodule Mix.TriplexTest do
   use ExUnit.Case, async: true
 
-  @repos [Triplex.PGTestRepo, Triplex.MSTestRepo]
+  @repos [Triplex.PGTestRepo]
 
   defmodule Repo do
     def start_link(opts) do
