@@ -154,8 +154,7 @@ defmodule Triplex do
 
       case SQL.query(repo, sql, []) do
         {:ok, _} ->
-          with {:ok, _} <- add_to_tenants_table(tenant, repo),
-               {:ok, _} <- exec_func(func, tenant, repo) do
+          with {:ok, _} <- exec_func(func, tenant, repo) do
             {:ok, tenant}
           else
             {:error, reason} ->
@@ -175,14 +174,6 @@ defmodule Triplex do
     else
       msg
     end
-  end
-
-  defp add_to_tenants_table(tenant, repo) do
-    {:ok, :skipped}
-  end
-
-  defp remove_from_tenants_table(tenant, repo) do
-    {:ok, :skipped}
   end
 
   defp exec_func(nil, tenant, _) do
@@ -210,8 +201,7 @@ defmodule Triplex do
       sql =
         "DROP SCHEMA \"#{to_prefix(tenant)}\" CASCADE"
 
-      with {:ok, _} <- SQL.query(repo, sql, []),
-           {:ok, _} <- remove_from_tenants_table(tenant, repo) do
+      with {:ok, _} <- SQL.query(repo, sql, []) do
         {:ok, tenant}
       else
         {:error, exception} ->
