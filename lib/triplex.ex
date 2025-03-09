@@ -3,7 +3,7 @@ defmodule Triplex do
   This is the main module of Triplex.
 
   The main objective of it is to make a little bit easier to manage tenants
-  through postgres db schemas or equivalents, executing queries and commands
+  through postgres db schemas, executing queries and commands
   inside and outside the tenant without much boilerplate code.
 
   ## Using the tenant
@@ -150,9 +150,7 @@ defmodule Triplex do
       {:error, reserved_message(tenant)}
     else
       sql =
-        case repo.__adapter__() do
-          Ecto.Adapters.Postgres -> "CREATE SCHEMA \"#{to_prefix(tenant)}\""
-        end
+        "CREATE SCHEMA \"#{to_prefix(tenant)}\""
 
       case SQL.query(repo, sql, []) do
         {:ok, _} ->
@@ -180,17 +178,11 @@ defmodule Triplex do
   end
 
   defp add_to_tenants_table(tenant, repo) do
-    case repo.__adapter__() do
-      Ecto.Adapters.Postgres ->
-        {:ok, :skipped}
-    end
+    {:ok, :skipped}
   end
 
   defp remove_from_tenants_table(tenant, repo) do
-    case repo.__adapter__() do
-      Ecto.Adapters.Postgres ->
-        {:ok, :skipped}
-    end
+    {:ok, :skipped}
   end
 
   defp exec_func(nil, tenant, _) do
@@ -216,9 +208,7 @@ defmodule Triplex do
       {:error, reserved_message(tenant)}
     else
       sql =
-        case repo.__adapter__() do
-          Ecto.Adapters.Postgres -> "DROP SCHEMA \"#{to_prefix(tenant)}\" CASCADE"
-        end
+        "DROP SCHEMA \"#{to_prefix(tenant)}\" CASCADE"
 
       with {:ok, _} <- SQL.query(repo, sql, []),
            {:ok, _} <- remove_from_tenants_table(tenant, repo) do
@@ -242,20 +232,17 @@ defmodule Triplex do
     if reserved_tenant?(new_tenant) do
       {:error, reserved_message(new_tenant)}
     else
-      case repo.__adapter__() do
-        Ecto.Adapters.Postgres ->
-          sql = """
-          ALTER SCHEMA \"#{to_prefix(old_tenant)}\"
-          RENAME TO \"#{to_prefix(new_tenant)}\"
-          """
+      sql = """
+      ALTER SCHEMA \"#{to_prefix(old_tenant)}\"
+      RENAME TO \"#{to_prefix(new_tenant)}\"
+      """
 
-          case SQL.query(repo, sql, []) do
-            {:ok, _} ->
-              {:ok, new_tenant}
+      case SQL.query(repo, sql, []) do
+        {:ok, _} ->
+          {:ok, new_tenant}
 
-            {:error, message} ->
-              {:error, error_message(message)}
-          end
+        {:error, message} ->
+          {:error, error_message(message)}
       end
     end
   end
@@ -265,13 +252,10 @@ defmodule Triplex do
   """
   def all(repo \\ config().repo) do
     sql =
-      case repo.__adapter__() do
-        Ecto.Adapters.Postgres ->
-          """
-          SELECT schema_name
-          FROM information_schema.schemata
-          """
-      end
+      """
+      SELECT schema_name
+      FROM information_schema.schemata
+      """
 
     %{rows: result} = SQL.query!(repo, sql, [])
 
@@ -290,14 +274,11 @@ defmodule Triplex do
       false
     else
       sql =
-        case repo.__adapter__() do
-          Ecto.Adapters.Postgres ->
-            """
-            SELECT COUNT(*)
-            FROM information_schema.schemata
-            WHERE schema_name = $1
-            """
-        end
+        """
+        SELECT COUNT(*)
+        FROM information_schema.schemata
+        WHERE schema_name = $1
+        """
 
       %{rows: [[count]]} = SQL.query!(repo, sql, [to_prefix(tenant)])
       count == 1
