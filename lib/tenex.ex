@@ -240,14 +240,14 @@ defmodule Tenex do
   @doc """
   Returns all the tenants on the given `repo`.
   """
-  def all(repo \\ config().repo) do
+  def all(repo \\ config().repo, opts \\ []) do
     sql =
       """
       SELECT schema_name
       FROM information_schema.schemata
       """
 
-    %{rows: result} = SQL.query!(repo, sql, [])
+    %{rows: result} = SQL.query!(repo, sql, [], opts)
 
     result
     |> List.flatten()
