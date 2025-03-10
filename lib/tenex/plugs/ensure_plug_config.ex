@@ -1,6 +1,6 @@
-defmodule Triplex.EnsurePlugConfig do
+defmodule Tenex.EnsurePlugConfig do
   @moduledoc """
-  This is a struct that holds the configuration for `Triplex.EnsurePlug`.
+  This is a struct that holds the configuration for `Tenex.EnsurePlug`.
 
   Here are the config keys allowed:
 

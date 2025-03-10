@@ -1,16 +1,16 @@
-defmodule Mix.Triplex do
+defmodule Mix.Tenex do
   @moduledoc """
-  Useful functions for any triplex mix task.
+  Useful functions for any tenex mix task.
 
   Here is the list of tasks we have for now:
 
-  - [`mix triplex.gen.migration`](./Mix.Tasks.Triplex.Gen.Migration.html) -
+  - [`mix tenex.gen.migration`](./Mix.Tasks.Tenex.Gen.Migration.html) -
   generates a tenant migration for the repo
-  - [`mix triplex.migrate`](./Mix.Tasks.Triplex.Migrate.html) -
+  - [`mix tenex.migrate`](./Mix.Tasks.Tenex.Migrate.html) -
   runs the repository tenant migrations
-  - [`mix triplex.migrations`](./Mix.Tasks.Triplex.Migrations.html) -
+  - [`mix tenex.migrations`](./Mix.Tasks.Tenex.Migrations.html) -
   displays the repository migration status
-  - [`mix triplex.rollback`](./Mix.Tasks.Triplex.Rollback.html) -
+  - [`mix tenex.rollback`](./Mix.Tasks.Tenex.Rollback.html) -
   rolls back the repository tenant migrations
   """
 
@@ -48,7 +48,7 @@ defmodule Mix.Triplex do
   or `Mix.raise`'s if it fails.
   """
   def ensure_tenant_migrations_path(repo) do
-    path = Path.join(source_repo_priv(repo), Triplex.config().migrations_path)
+    path = Path.join(source_repo_priv(repo), Tenex.config().migrations_path)
 
     if not Project.umbrella?() and not File.dir?(path) do
       raise_missing_migrations(Path.relative_to_cwd(path), repo)
@@ -102,7 +102,7 @@ defmodule Mix.Triplex do
     Code.compiler_options(ignore_module_conflict: true)
 
     migrated =
-      Enum.flat_map(Triplex.all(repo), fn tenant ->
+      Enum.flat_map(Tenex.all(repo), fn tenant ->
         opts = Keyword.put(opts, :prefix, tenant)
 
         if function_exported?(pool, :unboxed_run, 2) do

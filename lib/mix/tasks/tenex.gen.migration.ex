@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Triplex.Gen.Migration do
+defmodule Mix.Tasks.Tenex.Gen.Migration do
   use Mix.Task
 
   require Mix.Generator
@@ -16,8 +16,8 @@ defmodule Mix.Tasks.Triplex.Gen.Migration do
 
   ## Examples
 
-      mix triplex.gen.migration add_posts_table
-      mix triplex.gen.migration add_posts_table -r Custom.Repo
+      mix tenex.gen.migration add_posts_table
+      mix tenex.gen.migration add_posts_table -r Custom.Repo
 
   By default, the migration will be generated to the
   "priv/YOUR_REPO/migrations" directory of the current application
@@ -53,7 +53,7 @@ defmodule Mix.Tasks.Triplex.Gen.Migration do
 
           path =
             repo
-            |> Triplex.migrations_path()
+            |> Tenex.migrations_path()
             |> Path.relative_to(Project.app_path())
 
           file = Path.join(path, "#{timestamp()}_#{Macro.underscore(name)}.exs")

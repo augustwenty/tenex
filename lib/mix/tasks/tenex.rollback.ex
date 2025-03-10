@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Triplex.Rollback do
+defmodule Mix.Tasks.Tenex.Rollback do
   use Mix.Task
 
   @shortdoc "Rolls back the repository tenant migrations"
@@ -20,9 +20,9 @@ defmodule Mix.Tasks.Triplex.Rollback do
       config :my_app, MyApp.Repo, priv: "priv/custom_repo"
 
   To change the "tenant_migrations" part, you can set the `:migrations_path`
-  config under triplex configuration. For example, to use "priv/repo/my_migrations":
+  config under tenex configuration. For example, to use "priv/repo/my_migrations":
 
-      config :triplex, migrations_path: "my_migrations"
+      config :tenex, migrations_path: "my_migrations"
 
   This task runs all pending migrations by default. Runs the last
   applied migration by default. To roll back to a version number,
@@ -65,10 +65,10 @@ defmodule Mix.Tasks.Triplex.Rollback do
   not work, please compare them and try to stay as close to it as possible.
   """
 
-  alias Mix.Triplex
+  alias Mix.Tenex
 
   @impl true
-  def run(args, migrator \\ &Triplex.run_tenant_migrations/2) do
+  def run(args, migrator \\ &Tenex.run_tenant_migrations/2) do
     migrator.(args, :down)
   end
 end

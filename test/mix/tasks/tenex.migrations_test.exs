@@ -1,18 +1,18 @@
-defmodule Mix.Tasks.Triplex.MigrationsTest do
+defmodule Mix.Tasks.Tenex.MigrationsTest do
   use ExUnit.Case
 
-  alias Mix.Tasks.Triplex.Migrations
+  alias Mix.Tasks.Tenex.Migrations
   alias Ecto.Migrator
 
-  @repos [Triplex.PGTestRepo]
+  @repos [Tenex.PGTestRepo]
 
   setup do
     for repo <- @repos do
       Ecto.Adapters.SQL.Sandbox.mode(repo, :auto)
 
       drop_tenants = fn ->
-        Triplex.drop("migrations_test_down", repo)
-        Triplex.drop("migrations_test_up", repo)
+        Tenex.drop("migrations_test_down", repo)
+        Tenex.drop("migrations_test_up", repo)
       end
 
       drop_tenants.()
@@ -24,8 +24,8 @@ defmodule Mix.Tasks.Triplex.MigrationsTest do
 
   test "runs migration for each tenant, with the correct prefix" do
     for repo <- @repos do
-      Triplex.create_schema("migrations_test_down", repo)
-      Triplex.create("migrations_test_up", repo)
+      Tenex.create_schema("migrations_test_down", repo)
+      Tenex.create("migrations_test_up", repo)
 
       Migrations.run(["-r", repo], &Migrator.migrations/2, fn msg ->
         assert msg =~

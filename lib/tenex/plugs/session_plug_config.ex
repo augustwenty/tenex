@@ -1,6 +1,6 @@
-defmodule Triplex.SessionPlugConfig do
+defmodule Tenex.SessionPlugConfig do
   @moduledoc """
-  This is a struct that holds the configuration for `Triplex.SessionPlug`.
+  This is a struct that holds the configuration for `Tenex.SessionPlug`.
 
   Here are the config keys allowed:
 

@@ -1,9 +1,9 @@
-defmodule Triplex.SubdomainPlugTest do
+defmodule Tenex.SubdomainPlugTest do
   use ExUnit.Case
 
   import Plug.Test
-  alias Triplex.SubdomainPlug
-  alias Triplex.FakeEndpoint
+  alias Tenex.SubdomainPlug
+  alias Tenex.FakeEndpoint
 
   test "call/2 must set the tenant" do
     conn =

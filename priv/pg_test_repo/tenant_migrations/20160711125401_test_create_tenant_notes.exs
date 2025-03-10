@@ -1,4 +1,4 @@
-defmodule Triplex.TestRepo.Migrations.CreateTenantNotes do
+defmodule Tenex.TestRepo.Migrations.CreateTenantNotes do
   @moduledoc false
 
   use Ecto.Migration

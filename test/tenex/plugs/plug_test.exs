@@ -1,11 +1,11 @@
-defmodule Triplex.PlugTest do
+defmodule Tenex.PlugTest do
   use ExUnit.Case
 
   import Plug.Conn
   import Plug.Test
-  alias Triplex.Plug
-  alias Triplex.ParamPlugConfig
-  alias Triplex.EnsurePlugConfig
+  alias Tenex.Plug
+  alias Tenex.ParamPlugConfig
+  alias Tenex.EnsurePlugConfig
 
   test "put_tenant/3 must set the tenant to the default assign" do
     conn =

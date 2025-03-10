@@ -1,22 +1,22 @@
 if Code.ensure_loaded?(Plug) do
-  defmodule Triplex.SubdomainPlug do
+  defmodule Tenex.SubdomainPlug do
     @moduledoc """
     This is a basic plug that loads the current tenant assign from a given
     value set on subdomain.
 
     To plug it on your router, you can use:
 
-        plug Triplex.SubdomainPlug,
+        plug Tenex.SubdomainPlug,
           endpoint: MyApp.Endpoint,
           tenant_handler: &TenantHelper.tenant_handler/1
 
-    See `Triplex.SubdomainPlugConfig` to check all the allowed `config` flags.
+    See `Tenex.SubdomainPlugConfig` to check all the allowed `config` flags.
     """
 
     alias Plug.Conn
 
-    alias Triplex.Plug
-    alias Triplex.SubdomainPlugConfig
+    alias Tenex.Plug
+    alias Tenex.SubdomainPlugConfig
 
     @doc false
     def init(opts), do: struct(SubdomainPlugConfig, opts)

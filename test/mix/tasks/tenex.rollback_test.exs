@@ -1,9 +1,9 @@
-defmodule Mix.Tasks.Triplex.RollbackTest do
+defmodule Mix.Tasks.Tenex.RollbackTest do
   use ExUnit.Case
 
-  alias Mix.Tasks.Triplex.Rollback
+  alias Mix.Tasks.Tenex.Rollback
 
-  @repos [Triplex.PGTestRepo]
+  @repos [Tenex.PGTestRepo]
 
   test "runs the migrator function" do
     for repo <- @repos do

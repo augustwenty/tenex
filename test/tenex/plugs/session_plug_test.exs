@@ -1,8 +1,8 @@
-defmodule Triplex.SessionPlugTest do
+defmodule Tenex.SessionPlugTest do
   use ExUnit.Case
 
   import Plug.Test
-  alias Triplex.SessionPlug
+  alias Tenex.SessionPlug
 
   test "call/2 must set the tenant to the default assign" do
     conn =

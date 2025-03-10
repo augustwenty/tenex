@@ -1,8 +1,8 @@
-defmodule Triplex.ParamPlugTest do
+defmodule Tenex.ParamPlugTest do
   use ExUnit.Case
 
   import Plug.Test
-  alias Triplex.ParamPlug
+  alias Tenex.ParamPlug
 
   test "call/2 must set the tenant to assign" do
     conn =

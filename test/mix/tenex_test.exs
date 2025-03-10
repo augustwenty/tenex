@@ -1,7 +1,7 @@
-defmodule Mix.TriplexTest do
+defmodule Mix.TenexTest do
   use ExUnit.Case, async: true
 
-  @repos [Triplex.PGTestRepo]
+  @repos [Tenex.PGTestRepo]
 
   defmodule Repo do
     def start_link(opts) do
@@ -10,17 +10,17 @@ defmodule Mix.TriplexTest do
     end
 
     def __adapter__ do
-      Triplex.TestAdapter
+      Tenex.TestAdapter
     end
 
     def config do
-      [priv: Process.get(:priv), otp_app: :triplex]
+      [priv: Process.get(:priv), otp_app: :tenex]
     end
   end
 
   defmodule LostRepo do
     def config do
-      [priv: "where", otp_app: :triplex]
+      [priv: "where", otp_app: :tenex]
     end
   end
 
@@ -29,8 +29,8 @@ defmodule Mix.TriplexTest do
       Ecto.Adapters.SQL.Sandbox.mode(repo, :auto)
 
       drop_tenants = fn ->
-        Triplex.drop("test1", repo)
-        Triplex.drop("test2", repo)
+        Tenex.drop("test1", repo)
+        Tenex.drop("test2", repo)
       end
 
       drop_tenants.()
@@ -43,7 +43,7 @@ defmodule Mix.TriplexTest do
   test "ensure tenant migrations path" do
     msg = """
     Could not find migrations directory "where/tenant_migrations"
-    for repo Mix.TriplexTest.LostRepo.
+    for repo Mix.TenexTest.LostRepo.
 
     This may be because you are in a new project and the
     migration directory has not been created yet. Creating an
@@ -55,25 +55,25 @@ defmodule Mix.TriplexTest do
     """
 
     assert_raise Mix.Error, msg, fn ->
-      Mix.Triplex.ensure_tenant_migrations_path(LostRepo)
+      Mix.Tenex.ensure_tenant_migrations_path(LostRepo)
     end
 
     for repo <- @repos do
       folder = repo |> Module.split() |> List.last() |> Macro.underscore()
 
-      assert Mix.Triplex.ensure_tenant_migrations_path(repo) ==
+      assert Mix.Tenex.ensure_tenant_migrations_path(repo) ==
                Path.expand("priv/#{folder}/tenant_migrations")
     end
   end
 
   test "runs migration for each tenant, with the correct prefix" do
     for repo <- @repos do
-      Triplex.create("test1", repo)
-      Triplex.create("test2", repo)
+      Tenex.create("test1", repo)
+      Tenex.create("test2", repo)
 
       args = ["-r", repo, "--step=1", "--quiet"]
 
-      Mix.Triplex.run_tenant_migrations(args, :down, fn ^repo, _, :down, opts ->
+      Mix.Tenex.run_tenant_migrations(args, :down, fn ^repo, _, :down, opts ->
         assert opts[:step] == 1
         assert opts[:log] == false
 
@@ -89,7 +89,7 @@ defmodule Mix.TriplexTest do
 
   test "does not run if there are no tenants" do
     for repo <- @repos do
-      Mix.Triplex.run_tenant_migrations(["-r", repo], :down, fn _, _, _, _ ->
+      Mix.Tenex.run_tenant_migrations(["-r", repo], :down, fn _, _, _, _ ->
         send(self(), :error)
 
         []
@@ -105,28 +105,28 @@ defmodule Mix.TriplexTest do
     refute :ecto_sql in Enum.map(Application.started_applications(), &elem(&1, 0))
 
     Process.put(:start_link, {:ok, self()})
-    assert Mix.Triplex.ensure_started(Repo, []) == {:ok, self(), []}
+    assert Mix.Tenex.ensure_started(Repo, []) == {:ok, self(), []}
     assert :ecto_sql in Enum.map(Application.started_applications(), &elem(&1, 0))
 
     Process.put(:start_link, {:error, {:already_started, self()}})
-    assert Mix.Triplex.ensure_started(Repo, []) == {:ok, nil, []}
+    assert Mix.Tenex.ensure_started(Repo, []) == {:ok, nil, []}
 
     Process.put(:start_link, {:error, self()})
-    assert_raise Mix.Error, fn -> Mix.Triplex.ensure_started(Repo, []) end
+    assert_raise Mix.Error, fn -> Mix.Tenex.ensure_started(Repo, []) end
   end
 
   test "source_priv_repo" do
     Process.put(:priv, nil)
-    assert Mix.Triplex.source_repo_priv(Repo) == Path.expand("priv/repo", File.cwd!())
+    assert Mix.Tenex.source_repo_priv(Repo) == Path.expand("priv/repo", File.cwd!())
     Process.put(:priv, "hello")
-    assert Mix.Triplex.source_repo_priv(Repo) == Path.expand("hello", File.cwd!())
+    assert Mix.Tenex.source_repo_priv(Repo) == Path.expand("hello", File.cwd!())
   end
 
   test "restart_apps_if_migrated" do
-    assert Mix.Triplex.restart_apps_if_migrated([:triplex], []) == :ok
-    assert :triplex in Enum.map(Application.started_applications(), &elem(&1, 0))
+    assert Mix.Tenex.restart_apps_if_migrated([:tenex], []) == :ok
+    assert :tenex in Enum.map(Application.started_applications(), &elem(&1, 0))
 
-    assert Mix.Triplex.restart_apps_if_migrated([:triplex], [1]) == :ok
-    assert :triplex in Enum.map(Application.started_applications(), &elem(&1, 0))
+    assert Mix.Tenex.restart_apps_if_migrated([:tenex], [1]) == :ok
+    assert :tenex in Enum.map(Application.started_applications(), &elem(&1, 0))
   end
 end

@@ -1,9 +1,9 @@
-defmodule Triplex.Mixfile do
+defmodule Tenex.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :triplex,
+      app: :tenex,
       version: "1.3.0",
       elixir: "~> 1.17",
       description: "Build multitenant applications on top of Ecto.",
@@ -16,8 +16,8 @@ defmodule Triplex.Mixfile do
       preferred_cli_env: preferred_cli_env(),
       deps: deps(),
       docs: [main: "readme", extras: ["README.md", "CHANGELOG.md"]],
-      name: "Triplex",
-      source_url: "https://github.com/ateliware/triplex"
+      name: "Tenex",
+      source_url: "https://github.com/ateliware/tenex"
     ]
   end
 
@@ -67,7 +67,7 @@ defmodule Triplex.Mixfile do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      "db.migrate": ["ecto.migrate", "triplex.migrate"],
+      "db.migrate": ["ecto.migrate", "tenex.migrate"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"],
       "test.reset": ["ecto.drop", "ecto.create", "db.migrate"],
       "test.cover": &run_default_coverage/1,
@@ -78,11 +78,11 @@ defmodule Triplex.Mixfile do
   defp package do
     # These are the default files included in the package
     [
-      name: :triplex,
+      name: :tenex,
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["Kelvin Stinghen"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/ateliware/triplex"}
+      links: %{"GitHub" => "https://github.com/ateliware/tenex"}
     ]
   end
 

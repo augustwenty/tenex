@@ -1,7 +1,7 @@
 import Config
 
-# Configure triplex
-config :triplex,
+# Configure tenex
+config :tenex,
   reserved_tenants: [
     "www",
     "api",
@@ -9,19 +9,19 @@ config :triplex,
     "security",
     "app",
     "staging",
-    "triplex_test",
+    "tenex_test",
     "travis",
     ~r/^db\d+$/
   ]
 
 # Configure your database
-config :triplex, ecto_repos: [Triplex.PGTestRepo]
+config :tenex, ecto_repos: [Tenex.PGTestRepo]
 
-config :triplex, Triplex.PGTestRepo,
+config :tenex, Tenex.PGTestRepo,
   username: System.get_env("PG_USERNAME") || "postgres",
   password: System.get_env("PG_PASSWORD") || "postgres",
   hostname: System.get_env("PG_HOST") || "localhost",
-  database: "triplex_test",
+  database: "tenex_test",
   pool: Ecto.Adapters.SQL.Sandbox
 
 config :logger, level: :warning

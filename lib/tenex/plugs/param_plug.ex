@@ -1,20 +1,20 @@
 if Code.ensure_loaded?(Plug) do
-  defmodule Triplex.ParamPlug do
+  defmodule Tenex.ParamPlug do
     @moduledoc """
     This is a basic plug that loads the current tenant assign from a given
     param.
 
     To plug it on your router, you can use:
 
-        plug Triplex.ParamPlug,
+        plug Tenex.ParamPlug,
           param: :subdomain,
           tenant_handler: &TenantHelper.tenant_handler/1
 
-    See `Triplex.ParamPlugConfig` to check all the allowed `config` flags.
+    See `Tenex.ParamPlugConfig` to check all the allowed `config` flags.
     """
 
-    alias Triplex.ParamPlugConfig
-    alias Triplex.Plug
+    alias Tenex.ParamPlugConfig
+    alias Tenex.Plug
 
     @doc false
     def init(opts), do: struct(ParamPlugConfig, opts)

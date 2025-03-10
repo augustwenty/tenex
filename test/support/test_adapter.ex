@@ -1,4 +1,4 @@
-defmodule Triplex.TestAdapter do
+defmodule Tenex.TestAdapter do
   @behaviour Ecto.Adapter
   @behaviour Ecto.Adapter.Queryable
   @behaviour Ecto.Adapter.Schema
@@ -90,7 +90,7 @@ defmodule Triplex.TestAdapter do
   end
 
   defp get_config(name, default) do
-    :triplex
+    :tenex
     |> Application.get_env(__MODULE__, [])
     |> Keyword.get(name, default)
   end

@@ -1,8 +1,8 @@
-defmodule Triplex.EnsurePlugTest do
+defmodule Tenex.EnsurePlugTest do
   use ExUnit.Case
 
   import Plug.Test
-  alias Triplex.EnsurePlug
+  alias Tenex.EnsurePlug
 
   test "call/2 calls callback on success" do
     callback = fn conn, _ -> Plug.Conn.assign(conn, :lala, "lolo") end

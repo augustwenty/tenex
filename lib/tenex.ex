@@ -1,6 +1,6 @@
-defmodule Triplex do
+defmodule Tenex do
   @moduledoc """
-  This is the main module of Triplex.
+  This is the main module of Tenex.
 
   The main objective of it is to make a little bit easier to manage tenants
   through postgres db schemas, executing queries and commands
@@ -13,9 +13,9 @@ defmodule Triplex do
   query, changeset or schema, stay with your application `Repo`, sending the
   prefix. Like this:
 
-      Repo.all(User, prefix: Triplex.to_prefix("my_tenant"))
+      Repo.all(User, prefix: Tenex.to_prefix("my_tenant"))
 
-  It's a good idea to call `Triplex.to_prefix` on your tenant name, although is
+  It's a good idea to call `Tenex.to_prefix` on your tenant name, although is
   not required. Because, if you configured a `tenant_prefix`, this function will
   return the prefixed one.
   """
@@ -24,10 +24,10 @@ defmodule Triplex do
   alias Ecto.Migrator
 
   @doc """
-  Returns a `%Triplex.Config{}` struct with all the args loaded from the app
+  Returns a `%Tenex.Config{}` struct with all the args loaded from the app
   configuration.
   """
-  def config, do: struct(Triplex.Config, Application.get_all_env(:triplex))
+  def config, do: struct(Tenex.Config, Application.get_all_env(:tenex))
 
   @doc """
   Returns the list of reserved tenants.
@@ -37,7 +37,7 @@ defmodule Triplex do
 
   You also can configure your own reserved tenant names if you want with:
 
-      config :triplex, reserved_tenants: ["www", "api", ~r/^db\d+$/]
+      config :tenex, reserved_tenants: ["www", "api", ~r/^db\d+$/]
 
   Notice that you can use regexes, and they will be applied to the tenant
   names.
@@ -94,26 +94,26 @@ defmodule Triplex do
 
   See `migrate/2` for more details about the migration running.
 
-  ### Ecto 3 migrations, triplex and transactions
+  ### Ecto 3 migrations, tenex and transactions
 
   So on Ecto 3, migrations were changed to run on async tasks. Because of
-  that it's not possible anymore to run `Triplex.create/2` inside of a
+  that it's not possible anymore to run `Tenex.create/2` inside of a
   transaction anymore.
 
   But there is a way to achieve the same results using `create_schema/3`
   and `migrate/2`. Here is an example using transaction:
 
       Repo.transaction(fn ->
-        {:ok, _} = Triplex.create("tenant")
+        {:ok, _} = Tenex.create("tenant")
         User.insert!(%{name: "Demo user 1"})
         User.insert!(%{name: "Demo user 2"})
       end)
 
   And here is how you could achieve the same results on success or fail:
 
-      Triplex.create_schema("tenant", Repo, fn(tenant, repo) ->
+      Tenex.create_schema("tenant", Repo, fn(tenant, repo) ->
         Repo.transaction(fn ->
-          {:ok, _} = Triplex.migrate(tenant, repo)
+          {:ok, _} = Tenex.migrate(tenant, repo)
           User.insert!(%{name: "Demo user 1"})
           User.insert!(%{name: "Demo user 2"})
 
@@ -319,7 +319,7 @@ defmodule Triplex do
   Returns the `tenant` name with the given `prefix`.
 
   If the `prefix` is omitted, the `tenant_prefix` configuration from
-  `Triplex.Config` will be used.
+  `Tenex.Config` will be used.
 
   The `tenant` can be a string, a map or a struct. For a string it will
   be used as the tenant name to concat the prefix. For a map or a struct, it

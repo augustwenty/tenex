@@ -1,14 +1,14 @@
 if Code.ensure_loaded?(Plug) do
-  defmodule Triplex.Plug do
+  defmodule Tenex.Plug do
     @moduledoc """
-    This module have some basic functions for our triplex plugs.
+    This module have some basic functions for our tenex plugs.
 
     The plugs we have for now are:
 
-    - `Triplex.ParamPlug` - loads the tenant from a body or query param
-    - `Triplex.SessionPlug` - loads the tenant from a session param
-    - `Triplex.SubdomainPlug` - loads the tenant from the url subdomain
-    - `Triplex.EnsurePlug` - ensures the current tenant is loaded and halts if not
+    - `Tenex.ParamPlug` - loads the tenant from a body or query param
+    - `Tenex.SessionPlug` - loads the tenant from a session param
+    - `Tenex.SubdomainPlug` - loads the tenant from the url subdomain
+    - `Tenex.EnsurePlug` - ensures the current tenant is loaded and halts if not
     """
 
     alias Plug.Conn
@@ -32,7 +32,7 @@ if Code.ensure_loaded?(Plug) do
         conn = Conn.assign(conn, @raw_tenant_assign, tenant)
         tenant = tenant_handler(tenant, config.tenant_handler)
 
-        if Triplex.reserved_tenant?(tenant) do
+        if Tenex.reserved_tenant?(tenant) do
           conn
         else
           Conn.assign(conn, config.assign, tenant)

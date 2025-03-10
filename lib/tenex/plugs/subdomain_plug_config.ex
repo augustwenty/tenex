@@ -1,6 +1,6 @@
-defmodule Triplex.SubdomainPlugConfig do
+defmodule Tenex.SubdomainPlugConfig do
   @moduledoc """
-  This is a struct that holds the configuration for `Triplex.SubdomainPlug`.
+  This is a struct that holds the configuration for `Tenex.SubdomainPlug`.
 
   Here are the config keys allowed:
 

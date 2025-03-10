@@ -1,11 +1,11 @@
-defmodule Mix.Tasks.Triplex.Gen.MigrationTest do
+defmodule Mix.Tasks.Tenex.Gen.MigrationTest do
   use ExUnit.Case, async: true
 
   import Support.FileHelpers
-  alias Mix.Tasks.Triplex.Gen.Migration
+  alias Mix.Tasks.Tenex.Gen.Migration
 
   tmp_path = Path.join(tmp_path(), inspect(Migration))
-  @migrations_path Path.join(tmp_path, Triplex.config().migrations_path)
+  @migrations_path Path.join(tmp_path, Tenex.config().migrations_path)
 
   defmodule Repo do
     def __adapter__ do
@@ -13,7 +13,7 @@ defmodule Mix.Tasks.Triplex.Gen.MigrationTest do
     end
 
     def config do
-      [priv: "tmp/#{inspect(Migration)}", otp_app: :triplex]
+      [priv: "tmp/#{inspect(Migration)}", otp_app: :tenex]
     end
   end
 
@@ -36,7 +36,7 @@ defmodule Mix.Tasks.Triplex.Gen.MigrationTest do
 
     assert_file(Path.join(@migrations_path, name), fn file ->
       assert file =~ """
-             defmodule Mix.Tasks.Triplex.Gen.MigrationTest.Repo.Migrations.Test do
+             defmodule Mix.Tasks.Tenex.Gen.MigrationTest.Repo.Migrations.Test do
              """
 
       assert file =~ "use Ecto.Migration"

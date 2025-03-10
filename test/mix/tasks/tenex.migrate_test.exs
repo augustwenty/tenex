@@ -1,9 +1,9 @@
-defmodule Mix.Tasks.Triplex.MigrateTest do
+defmodule Mix.Tasks.Tenex.MigrateTest do
   use ExUnit.Case
 
-  alias Mix.Tasks.Triplex.Migrate
+  alias Mix.Tasks.Tenex.Migrate
 
-  @repos [Triplex.PGTestRepo]
+  @repos [Tenex.PGTestRepo]
 
   test "runs the migrator function" do
     for repo <- @repos do

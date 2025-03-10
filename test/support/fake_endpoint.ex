@@ -1,3 +1,3 @@
-defmodule Triplex.FakeEndpoint do
+defmodule Tenex.FakeEndpoint do
   def config(:url), do: %{host: "lvh.me"}
 end

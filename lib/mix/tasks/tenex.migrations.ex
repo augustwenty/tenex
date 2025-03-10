@@ -1,10 +1,10 @@
-defmodule Mix.Tasks.Triplex.Migrations do
+defmodule Mix.Tasks.Tenex.Migrations do
   use Mix.Task
 
   alias Ecto.Migrator
 
   alias Mix.Ecto
-  alias Mix.Triplex, as: MTriplex
+  alias Mix.Tenex, as: MTenex
 
   @shortdoc "Displays the repository migration status"
   @recursive true
@@ -25,8 +25,8 @@ defmodule Mix.Tasks.Triplex.Migrations do
 
   ## Examples
 
-      mix triplex.migrations
-      mix triplex.migrations -r Custom.Repo
+      mix tenex.migrations
+      mix tenex.migrations -r Custom.Repo
 
   ## Command line options
 
@@ -41,10 +41,10 @@ defmodule Mix.Tasks.Triplex.Migrations do
     result =
       Enum.map(repos, fn repo ->
         Ecto.ensure_repo(repo, args)
-        MTriplex.ensure_tenant_migrations_path(repo)
-        {:ok, pid, _} = MTriplex.ensure_started(repo, all: true)
+        MTenex.ensure_tenant_migrations_path(repo)
+        {:ok, pid, _} = MTenex.ensure_started(repo, all: true)
 
-        migration_lists = migrations.(repo, Triplex.migrations_path(repo))
+        migration_lists = migrations.(repo, Tenex.migrations_path(repo))
         tenants_state = tenants_state(repo, migration_lists)
 
         pid && repo.stop(pid)
@@ -56,7 +56,7 @@ defmodule Mix.Tasks.Triplex.Migrations do
   end
 
   defp tenants_state(repo, migration_lists) do
-    Enum.map_join(Triplex.all(repo), fn tenant ->
+    Enum.map_join(Tenex.all(repo), fn tenant ->
       tenant_versions = Migrator.migrated_versions(repo, prefix: tenant)
       repo_status = repo_status(migration_lists, tenant_versions)
 

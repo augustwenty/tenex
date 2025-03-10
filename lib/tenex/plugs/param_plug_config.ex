@@ -1,6 +1,6 @@
-defmodule Triplex.ParamPlugConfig do
+defmodule Tenex.ParamPlugConfig do
   @moduledoc """
-  This is a struct that holds all configuration for `Triplex.ParamPlug`.
+  This is a struct that holds all configuration for `Tenex.ParamPlug`.
 
   Here are the config keys allowed:
 
