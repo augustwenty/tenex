@@ -1,122 +1,44 @@
 # Changelog
 
-### MyXQL Support
+## 1.0.2
 
-- I created a support for myxql package and mariaex package was removed,
-to use this update you will need to add the myxql package e.g `{:myxql, "~> 0.3.0"}`
-in your `mix.exs` file.
-
-## 1.3.0
-
-### Bug fixes
-
-- Fixed compilation error when optional adapters are not included in downstream project.
+### allows the user to turn off logging of sql queries
 
 ### Changed
 
-- docker-compose configuration that allows easy setup for test databases.
-- `Tenex.create/1,2` now rolls back the prefix creation if the `func` fails with error tuple
-- Now we support to Ecto 3! :tada: But be aware that this new version does not support
-the old versions of Ecto, only 3.0 and up
+- lib/tenex.ex
 
 ### Breaking changes
 
-It's not our fault, but there is a breaking change if you upgrade it because migration on
-Ecto 3 are ran on a different process.
+n/a
 
-The problem you may find is basically with this kind of code:
+## 1.0.1
 
-```elixir
-Repo.transaction(fn ->
-  {:ok, _} = Tenex.create("tenant")
-  User.insert!(%{name: "Demo user 1"})
-  User.insert!(%{name: "Demo user 2"})
-end)
-```
-
-As `Tenex.create/1` runs the tenant migrations, and they will run on different processes,
-you will get an error from your db saying that the given tenant prefix (schema or database
-depending on the db) does not exist.
-
-That occurs because the new processes will checkout a new connection to db, making them
-not aware of the current transaction, since it is on another db connection. But don't panic,
-we have a solution for you!
-
-Here is how you could achieve the same results on success or fail:
-
-```elixir
-Tenex.create_schema("tenant", Repo, fn(tenant, repo) ->
-  Repo.transaction(fn ->
-    {:ok, _} = Tenex.migrate(tenant, repo)
-    User.insert!(%{name: "Demo user 1"})
-    User.insert!(%{name: "Demo user 2"})
-
-    tenant
-  end)
-end)
-```
-
-For more details about these function check the online documentation for `Tenex.create/1,2`
-and `Tenex.create_schema/1,2,3`.
-
-## 1.3.0-rc.1
-
-### Bug fixes
-
-- Fixed compilation error when optional adapters are not included in downstream project.
+### README updates/clean-up
 
 ### Changed
 
-- docker-compose configuration that allows easy setup for test databases.
-
-## 1.3.0-rc.0
-
-### Added
-
-- Support to MySQL :dolphin:
-
-### Changed
-
-- `Tenex.create/1,2` now rolls back the prefix creation if the `func` fails with error tuple
-- Now we support to Ecto 3! :tada: But be aware that this new version does not support
-the old versions of Ecto, only 3.0 and up
+- README.md
 
 ### Breaking changes
 
-It's not our fault, but there is a breaking change if you upgrade it because migration on
-Ecto 3 are ran on a different process.
+n/a
 
-The problem you may find is basically with this kind of code:
+## 1.0.0
 
-```elixir
-Repo.transaction(fn ->
-  {:ok, _} = Tenex.create("tenant")
-  User.insert!(%{name: "Demo user 1"})
-  User.insert!(%{name: "Demo user 2"})
-end)
-```
+### Resetting the repo for new ownership
 
-As `Tenex.create/1` runs the tenant migrations, and they will run on different processes,
-you will get an error from your db saying that the given tenant prefix (schema or database
-depending on the db) does not exist.
+- fix: first check-in after pull from original repo
+- fix: removing case statements no longer required because I am only supporting postgres
+- fix: clean up work
+- fix: renaming to Tenex
+- fix: updating packages
+- fix: updating ownership naming
 
-That occurs because the new processes will checkout a new connection to db, making them
-not aware of the current transaction, since it is on another db connection. But don't panic,
-we have a solution for you!
+### Changed
 
-Here is how you could achieve the same results on success or fail:
+too many to list, please check the actual PR for files changed
 
-```elixir
-Tenex.create_schema("tenant", Repo, fn(tenant, repo) ->
-  Repo.transaction(fn ->
-    {:ok, _} = Tenex.migrate(tenant, repo)
-    User.insert!(%{name: "Demo user 1"})
-    User.insert!(%{name: "Demo user 2"})
+### Breaking changes
 
-    tenant
-  end)
-end)
-```
-
-For more details about these function check the online documentation for `Tenex.create/1,2`
-and `Tenex.create_schema/1,2,3`.
+n/a
