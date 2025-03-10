@@ -2,7 +2,7 @@
 
 [![Version](http://img.shields.io/hexpm/v/tenex.svg?style=flat)](https://hex.pm/packages/tenex)
 [![Downloads](https://img.shields.io/hexpm/dt/tenex.svg)](https://hex.pm/packages/tenex)
-[![Coverage Status](https://coveralls.io/repos/github/ateliware/tenex/badge.svg?branch=master)](https://coveralls.io/github/ateliware/tenex?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/augustwenty/tenex/badge.svg?branch=master)](https://coveralls.io/github/augustwenty/tenex?branch=master)
 
 A simple and effective way to build multitenant applications on top of Ecto.
 

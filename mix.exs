@@ -17,7 +17,7 @@ defmodule Tenex.Mixfile do
       deps: deps(),
       docs: [main: "readme", extras: ["README.md", "CHANGELOG.md"]],
       name: "Tenex",
-      source_url: "https://github.com/ateliware/tenex"
+      source_url: "https://github.com/augustwenty/tenex"
     ]
   end
 
@@ -82,7 +82,7 @@ defmodule Tenex.Mixfile do
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["Kelvin Stinghen"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/ateliware/tenex"}
+      links: %{"GitHub" => "https://github.com/augustwenty/tenex"}
     ]
   end
 
