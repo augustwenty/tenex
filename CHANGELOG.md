@@ -15,7 +15,7 @@ in your `mix.exs` file.
 ### Changed
 
 - docker-compose configuration that allows easy setup for test databases.
-- `Triplex.create/1,2` now rolls back the prefix creation if the `func` fails with error tuple
+- `Tenex.create/1,2` now rolls back the prefix creation if the `func` fails with error tuple
 - Now we support to Ecto 3! :tada: But be aware that this new version does not support
 the old versions of Ecto, only 3.0 and up
 
@@ -28,13 +28,13 @@ The problem you may find is basically with this kind of code:
 
 ```elixir
 Repo.transaction(fn ->
-  {:ok, _} = Triplex.create("tenant")
+  {:ok, _} = Tenex.create("tenant")
   User.insert!(%{name: "Demo user 1"})
   User.insert!(%{name: "Demo user 2"})
 end)
 ```
 
-As `Triplex.create/1` runs the tenant migrations, and they will run on different processes,
+As `Tenex.create/1` runs the tenant migrations, and they will run on different processes,
 you will get an error from your db saying that the given tenant prefix (schema or database
 depending on the db) does not exist.
 
@@ -45,9 +45,9 @@ we have a solution for you!
 Here is how you could achieve the same results on success or fail:
 
 ```elixir
-Triplex.create_schema("tenant", Repo, fn(tenant, repo) ->
+Tenex.create_schema("tenant", Repo, fn(tenant, repo) ->
   Repo.transaction(fn ->
-    {:ok, _} = Triplex.migrate(tenant, repo)
+    {:ok, _} = Tenex.migrate(tenant, repo)
     User.insert!(%{name: "Demo user 1"})
     User.insert!(%{name: "Demo user 2"})
 
@@ -56,8 +56,8 @@ Triplex.create_schema("tenant", Repo, fn(tenant, repo) ->
 end)
 ```
 
-For more details about these function check the online documentation for `Triplex.create/1,2`
-and `Triplex.create_schema/1,2,3`.
+For more details about these function check the online documentation for `Tenex.create/1,2`
+and `Tenex.create_schema/1,2,3`.
 
 ## 1.3.0-rc.1
 
@@ -77,7 +77,7 @@ and `Triplex.create_schema/1,2,3`.
 
 ### Changed
 
-- `Triplex.create/1,2` now rolls back the prefix creation if the `func` fails with error tuple
+- `Tenex.create/1,2` now rolls back the prefix creation if the `func` fails with error tuple
 - Now we support to Ecto 3! :tada: But be aware that this new version does not support
 the old versions of Ecto, only 3.0 and up
 
@@ -90,13 +90,13 @@ The problem you may find is basically with this kind of code:
 
 ```elixir
 Repo.transaction(fn ->
-  {:ok, _} = Triplex.create("tenant")
+  {:ok, _} = Tenex.create("tenant")
   User.insert!(%{name: "Demo user 1"})
   User.insert!(%{name: "Demo user 2"})
 end)
 ```
 
-As `Triplex.create/1` runs the tenant migrations, and they will run on different processes,
+As `Tenex.create/1` runs the tenant migrations, and they will run on different processes,
 you will get an error from your db saying that the given tenant prefix (schema or database
 depending on the db) does not exist.
 
@@ -107,9 +107,9 @@ we have a solution for you!
 Here is how you could achieve the same results on success or fail:
 
 ```elixir
-Triplex.create_schema("tenant", Repo, fn(tenant, repo) ->
+Tenex.create_schema("tenant", Repo, fn(tenant, repo) ->
   Repo.transaction(fn ->
-    {:ok, _} = Triplex.migrate(tenant, repo)
+    {:ok, _} = Tenex.migrate(tenant, repo)
     User.insert!(%{name: "Demo user 1"})
     User.insert!(%{name: "Demo user 2"})
 
@@ -118,5 +118,5 @@ Triplex.create_schema("tenant", Repo, fn(tenant, repo) ->
 end)
 ```
 
-For more details about these function check the online documentation for `Triplex.create/1,2`
-and `Triplex.create_schema/1,2,3`.
+For more details about these function check the online documentation for `Tenex.create/1,2`
+and `Tenex.create_schema/1,2,3`.

@@ -1,6 +1,6 @@
 # This file is responsible for configuring your application
 # and its dependencies with the aid of the Mix.Config module.
-use Mix.Config
+import Config
 
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this
@@ -10,18 +10,18 @@ use Mix.Config
 
 # You can configure for your application as:
 #
-#     config :triplex, key: :value
+#     config :tenex, key: :value
 #
 # And access this configuration in your application as:
 #
-#     Application.get_env(:triplex, :key)
+#     Application.get_env(:tenex, :key)
 #
 # Or configure a 3rd-party app:
 #
 #     config :logger, level: :info
 #
 
-config :triplex, ecto_repos: []
+config :tenex, ecto_repos: []
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment

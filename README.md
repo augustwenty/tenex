@@ -1,28 +1,24 @@
-# Triplex
+# Tenex
 
-[![Build Status](https://travis-ci.org/ateliware/triplex.svg?branch=master)](https://travis-ci.org/ateliware/triplex)
-[![Version](http://img.shields.io/hexpm/v/triplex.svg?style=flat)](https://hex.pm/packages/triplex)
-[![Downloads](https://img.shields.io/hexpm/dt/triplex.svg)](https://hex.pm/packages/triplex)
-[![Coverage Status](https://coveralls.io/repos/github/ateliware/triplex/badge.svg?branch=master)](https://coveralls.io/github/ateliware/triplex?branch=master)
-[![Code Climate](https://img.shields.io/codeclimate/github/ateliware/triplex.svg)](https://codeclimate.com/github/ateliware/triplex)
-[![Inline docs](http://inch-ci.org/github/ateliware/triplex.svg?branch=master&style=flat)](http://inch-ci.org/github/ateliware/triplex)
+[![Version](http://img.shields.io/hexpm/v/tenex.svg?style=flat)](https://hex.pm/packages/tenex)
+[![Downloads](https://img.shields.io/hexpm/dt/tenex.svg)](https://hex.pm/packages/tenex)
+[![Coverage Status](https://coveralls.io/repos/github/augustwenty/tenex/badge.svg?branch=master)](https://coveralls.io/github/augustwenty/tenex?branch=master)
 
 A simple and effective way to build multitenant applications on top of Ecto.
 
-[Documentation](https://hexdocs.pm/triplex/readme.html)
+[Documentation](https://hexdocs.pm/tenex/readme.html)
 
-Triplex leverages database data segregation techniques (such as [Postgres schemas](https://www.postgresql.org/docs/current/static/ddl-schemas.html)) to keep tenant-specific data separated, while allowing you to continue using the Ecto functions you are familiar with.
-
+Tenex leverages database data segregation techniques (such as [Postgres schemas](https://www.postgresql.org/docs/current/static/ddl-schemas.html)) to keep tenant-specific data separated, while allowing you to continue using the Ecto functions you are familiar with.
 
 
 ## Quick Start
 
-1. Add `triplex` to your list of dependencies in `mix.exs`:
+1. Add `tenex` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:triplex, "~> 1.3.0"},
+    {:tenex, "~> 1.0.0"},
   ]
 end
 ```
@@ -38,27 +34,29 @@ mix deps.get
 
 Configure the Repo you will use to execute the database commands with:
 
-    config :triplex, repo: ExampleApp.Repo
+    config :tenex, repo: ExampleApp.Repo
 
 ### Additional configuration for MySQL
 
 In MySQL, each tenant will have its own MySQL database.
-Triplex uses a table called `tenants` in the main Repo to keep track of the different tenants.
-Generate the migration that will create the table by running:
+Tenex used to use a table called `tenants` in the main Repo to keep track of the different tenants.
+If you wish to keep this behavior, generate the migration that will create the table by running:
 
-    mix triplex.mysql.install
+    mix tenex.mysql.install
 
 And then create the table:
 
     mix ecto.migrate
 
-Otherwise, if you wish to skip this behavior, configure Triplex to use the default `information_schema.schemata` table:
+Finally, configure Tenex to use the `tenants` table:
 
-    config :triplex, tenant_table: :"information_schema.schemata"
+    config :tenex, tenant_table: :tenants
+
+Otherwise, Tenex will continue to use the `information_schema.schemata` table as the default behavior for storing tenants.
 
 ## Usage
 
-Here is a quick overview of what you can do with triplex!
+Here is a quick overview of what you can do with tenex!
 
 
 ### Creating, renaming and dropping tenants
@@ -67,7 +65,7 @@ Here is a quick overview of what you can do with triplex!
 #### To create a new tenant:
 
 ```elixir
-Triplex.create("your_tenant")
+Tenex.create("your_tenant")
 ```
 
 This will create a new database schema and run your migrations—which may take a while depending on your application.
@@ -76,7 +74,7 @@ This will create a new database schema and run your migrations—which may take 
 #### Rename a tenant:
 
 ```elixir
-Triplex.rename("your_tenant", "my_tenant")
+Tenex.rename("your_tenant", "my_tenant")
 ```
 
 This is not something you should need to do often. :-)
@@ -85,10 +83,10 @@ This is not something you should need to do often. :-)
 #### Delete a tenant:
 
 ```elixir
-Triplex.drop("my_tenant")
+Tenex.drop("my_tenant")
 ```
 
-More information on the API can be found in [documentation](https://hexdocs.pm/triplex/Triplex.html#content).
+More information on the API can be found in [documentation](https://hexdocs.pm/tenex/Tenex.html#content).
 
 
 ### Creating tenant migrations
@@ -96,12 +94,12 @@ More information on the API can be found in [documentation](https://hexdocs.pm/t
 To create a migration to run across tenant schemas:
 
 ```bash
-mix triplex.gen.migration your_migration_name
+mix tenex.gen.migration your_migration_name
 ```
 
-If migrating an existing project to use Triplex, you can move some or all of your existing migrations from `priv/YOUR_REPO/migrations` to  `priv/YOUR_REPO/tenant_migrations`.
+If migrating an existing project to use Tenex, you can move some or all of your existing migrations from `priv/YOUR_REPO/migrations` to  `priv/YOUR_REPO/tenant_migrations`.
 
-Triplex and Ecto will automatically add prefixes to standard migration functions.  If you have _custom_ SQL in your migrations, you will need to use the [`prefix`](https://hexdocs.pm/ecto/Ecto.Migration.html#prefix/0) function provided by Ecto. e.g.
+Tenex and Ecto will automatically add prefixes to standard migration functions.  If you have _custom_ SQL in your migrations, you will need to use the [`prefix`](https://hexdocs.pm/ecto/Ecto.Migration.html#prefix/0) function provided by Ecto. e.g.
 
 ```elixir
 def up do
@@ -113,7 +111,7 @@ end
 ### Running tenant migrations:
 
 ```bash
-mix triplex.migrate
+mix tenex.migrate
 ```
 
 This will migrate all of your existing tenants, one by one.  In the case of failure, the next run will continue from where it stopped.
@@ -121,25 +119,25 @@ This will migrate all of your existing tenants, one by one.  In the case of fail
 
 ### Using Ecto
 
-Your Ecto usage only needs the `prefix` option.  Triplex provides a helper to coerce the tenant value into the proper format, e.g.:
+Your Ecto usage only needs the `prefix` option.  Tenex provides a helper to coerce the tenant value into the proper format, e.g.:
 
 ```elixir
-Repo.all(User, prefix: Triplex.to_prefix("my_tenant"))
-Repo.get!(User, 123, prefix: Triplex.to_prefix("my_tenant"))
+Repo.all(User, prefix: Tenex.to_prefix("my_tenant"))
+Repo.get!(User, 123, prefix: Tenex.to_prefix("my_tenant"))
 ```
 
 
 ### Fetching the tenant with Plug
 
-Triplex includes configurable plugs that you can use to load the current tenant in your application.
+Tenex includes configurable plugs that you can use to load the current tenant in your application.
 
 Here is an example loading the tenant from the current subdomain:
 
 ```elixir
-plug Triplex.SubdomainPlug, endpoint: MyApp.Endpoint
+plug Tenex.SubdomainPlug, endpoint: MyApp.Endpoint
 ```
 
-For more information, check the `Triplex.Plug` documentation for an overview of our plugs.
+For more information, check the `Tenex.Plug` documentation for an overview of our plugs.
 
 
 ## Thanks

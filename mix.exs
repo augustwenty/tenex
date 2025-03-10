@@ -1,11 +1,11 @@
-defmodule Triplex.Mixfile do
+defmodule Tenex.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :triplex,
-      version: "1.3.0",
-      elixir: "~> 1.7",
+      app: :tenex,
+      version: "1.0.0",
+      elixir: "~> 1.17",
       description: "Build multitenant applications on top of Ecto.",
       package: package(),
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -16,8 +16,8 @@ defmodule Triplex.Mixfile do
       preferred_cli_env: preferred_cli_env(),
       deps: deps(),
       docs: [main: "readme", extras: ["README.md", "CHANGELOG.md"]],
-      name: "Triplex",
-      source_url: "https://github.com/ateliware/triplex"
+      name: "Tenex",
+      source_url: "https://github.com/augustwenty/tenex"
     ]
   end
 
@@ -47,10 +47,10 @@ defmodule Triplex.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:credo, "~> 0.8.10", only: [:test, :dev], optional: true, runtime: false},
+      {:credo, "~> 1.0", only: [:test, :dev], optional: true, runtime: false},
       {:ecto_sql, "~> 3.4"},
-      {:ex_doc, "~> 0.18.0", only: :dev},
-      {:excoveralls, "~> 0.10", only: :test},
+      {:ex_doc, "~> 0.0", only: :dev},
+      {:excoveralls, "~> 0.0", only: :test},
       {:inch_ex, ">= 0.0.0", only: :docs},
       {:plug, "~> 1.6", optional: true},
       {:postgrex, ">= 0.15.0", optional: true},
@@ -67,7 +67,7 @@ defmodule Triplex.Mixfile do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      "db.migrate": ["ecto.migrate", "triplex.migrate"],
+      "db.migrate": ["ecto.migrate", "tenex.migrate"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"],
       "test.reset": ["ecto.drop", "ecto.create", "db.migrate"],
       "test.cover": &run_default_coverage/1,
@@ -78,11 +78,11 @@ defmodule Triplex.Mixfile do
   defp package do
     # These are the default files included in the package
     [
-      name: :triplex,
+      name: :tenex,
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["Kelvin Stinghen"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/ateliware/triplex"}
+      links: %{"GitHub" => "https://github.com/augustwenty/tenex"}
     ]
   end
 
