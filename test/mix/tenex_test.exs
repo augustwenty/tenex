@@ -88,6 +88,7 @@ defmodule Mix.TenexTest do
   end
 
   test "does not run if there are no tenants" do
+    IO.inspect @repos
     for repo <- @repos do
       Mix.Tenex.run_tenant_migrations(["-r", repo], :down, fn _, _, _, _ ->
         send(self(), :error)

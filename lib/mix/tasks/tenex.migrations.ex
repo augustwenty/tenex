@@ -38,16 +38,21 @@ defmodule Mix.Tasks.Tenex.Migrations do
   def run(args, migrations \\ &Migrator.migrations/2, puts \\ &IO.puts/1) do
     repos = Ecto.parse_repo(args)
 
+    IO.inspect(repos)
+
     result =
       Enum.map(repos, fn repo ->
         Ecto.ensure_repo(repo, args)
         MTenex.ensure_tenant_migrations_path(repo)
-        {:ok, pid, _} = MTenex.ensure_started(repo, all: true)
+        # {:ok, pid, _} = MTenex.ensure_started(repo, all: true)
+        {:ok, _pid, _} = MTenex.ensure_started(repo, all: true)
+
 
         migration_lists = migrations.(repo, Tenex.migrations_path(repo))
         tenants_state = tenants_state(repo, migration_lists)
 
-        pid && repo.stop(pid)
+        # pid && repo.stop(pid)
+        repo.stop()
 
         tenants_state
       end)
