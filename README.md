@@ -1,18 +1,14 @@
 # Tenex
 
-[![Build Status](https://travis-ci.org/ateliware/tenex.svg?branch=master)](https://travis-ci.org/ateliware/tenex)
 [![Version](http://img.shields.io/hexpm/v/tenex.svg?style=flat)](https://hex.pm/packages/tenex)
 [![Downloads](https://img.shields.io/hexpm/dt/tenex.svg)](https://hex.pm/packages/tenex)
 [![Coverage Status](https://coveralls.io/repos/github/ateliware/tenex/badge.svg?branch=master)](https://coveralls.io/github/ateliware/tenex?branch=master)
-[![Code Climate](https://img.shields.io/codeclimate/github/ateliware/tenex.svg)](https://codeclimate.com/github/ateliware/tenex)
-[![Inline docs](http://inch-ci.org/github/ateliware/tenex.svg?branch=master&style=flat)](http://inch-ci.org/github/ateliware/tenex)
 
 A simple and effective way to build multitenant applications on top of Ecto.
 
 [Documentation](https://hexdocs.pm/tenex/readme.html)
 
 Tenex leverages database data segregation techniques (such as [Postgres schemas](https://www.postgresql.org/docs/current/static/ddl-schemas.html)) to keep tenant-specific data separated, while allowing you to continue using the Ecto functions you are familiar with.
-
 
 
 ## Quick Start
@@ -22,7 +18,7 @@ Tenex leverages database data segregation techniques (such as [Postgres schemas]
 ```elixir
 def deps do
   [
-    {:tenex, "~> 1.3.0"},
+    {:tenex, "~> 1.0.0"},
   ]
 end
 ```

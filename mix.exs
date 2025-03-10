@@ -4,7 +4,7 @@ defmodule Tenex.Mixfile do
   def project do
     [
       app: :tenex,
-      version: "1.3.0",
+      version: "1.0.0",
       elixir: "~> 1.17",
       description: "Build multitenant applications on top of Ecto.",
       package: package(),
