@@ -1,10 +1,13 @@
 defmodule Tenex.Mixfile do
   use Mix.Project
 
+  @source_url "https://github.com/augustwenty/tenex"
+  @version "1.0.1"
+
   def project do
     [
       app: :tenex,
-      version: "1.0.0",
+      version: @version,
       elixir: "~> 1.17",
       description: "Build multitenant applications on top of Ecto.",
       package: package(),
@@ -15,7 +18,7 @@ defmodule Tenex.Mixfile do
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: preferred_cli_env(),
       deps: deps(),
-      docs: [main: "readme", extras: ["README.md", "CHANGELOG.md"]],
+      docs: docs(),
       name: "Tenex",
       source_url: "https://github.com/augustwenty/tenex"
     ]
@@ -79,15 +82,34 @@ defmodule Tenex.Mixfile do
     # These are the default files included in the package
     [
       name: :tenex,
+      description: "Build multitenant applications on top of Ecto.",
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["Kelvin Stinghen"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/augustwenty/tenex"}
+      links: %{"GitHub" => @source_url}
+    ]
+  end
+
+  defp docs do
+    [
+      extras: [
+        "CHANGELOG.md": [title: "Changelog"],
+        "CONTRIBUTING.md": [title: "Contributing"],
+        "CODE_OF_CONDUCT.md": [title: "Code of Conduct"],
+        "LICENSE.md": [title: "License"],
+        "README.md": [title: "Overview"]
+      ],
+      main: "readme",
+      source_url: @source_url,
+      source_ref: "v#{@version}",
+      formatters: ["html"]
     ]
   end
 
   defp preferred_cli_env do
     [
+      docs: :docs,
+      "hex.publish": :docs,
       coveralls: :test,
       "coveralls.travis": :test,
       "coveralls.detail": :test,
