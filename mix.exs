@@ -51,14 +51,13 @@ defmodule Tenex.Mixfile do
   defp deps do
     [
       {:credo, "~> 1.0", only: [:test, :dev], optional: true, runtime: false},
+      {:decimal, ">= 1.6.0"}
       {:ecto_sql, "~> 3.4"},
-      {:ex_doc, "~> 0.0.0", only: :dev},
+      {:ex_doc, "~> 0.37.3", only: :docs, runtime: false},
       {:excoveralls, "~> 0.0", only: :test},
       {:inch_ex, ">= 0.0.0", only: :docs},
       {:plug, "~> 1.6", optional: true},
       {:postgrex, ">= 0.15.0", optional: true},
-      {:myxql, ">= 0.3.0", optional: true},
-      {:decimal, ">= 1.6.0"}
     ]
   end
 
@@ -84,7 +83,7 @@ defmodule Tenex.Mixfile do
       name: :tenex,
       description: "Build multitenant applications on top of Ecto.",
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
-      maintainers: ["Kelvin Stinghen"],
+      maintainers: ["augustwenty"],
       licenses: ["MIT"],
       links: %{"GitHub" => @source_url}
     ]
