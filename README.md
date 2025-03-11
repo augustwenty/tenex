@@ -113,4 +113,10 @@ For more information, check the `Tenex.Plug` documentation for an overview of ou
 
 ## Thanks
 
-This lib is inspired by the gem [apartment](https://github.com/influitive/apartment), which does the same thing in Ruby on Rails world. We also give credit (and a lot of thanks) to @Dania02525 for the work on [apartmentex](https://github.com/Dania02525/apartmentex). A lot of the work here is based on what she has done there. And also to @jeffdeville, who forked ([tenantex](https://github.com/jeffdeville/tenantex)) taking a different approach, which gave us additional ideas.
+This library was originally inspired by the [Triplex](https://hex.pm/packages/triplex) hex package, which provided multi-tenancy support for
+Elixir applications. However, Triplex is no longer being actively maintained, with no updates since 2019.
+To address this, we have taken the original Triplex package, applied the outstanding pull requests, and
+introduced a new version under the name Tenex. This ensures continued improvements and support for those
+relying on a robust multi-tenancy solution in Elixir. Additionally, we have removed support for MySQL,
+focusing solely on databases that better align with our vision for Tenex
+and ensuring a more maintainable and optimized experience.
