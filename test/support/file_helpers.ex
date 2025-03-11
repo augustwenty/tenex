@@ -27,7 +27,7 @@ defmodule Support.FileHelpers do
   Asserts a file was generated.
   """
   def assert_file(file) do
-    assert File.regular?(file), "Expected #{file} to exist, but does not"
+    assert File.regular?(file), "Expected #{file} does not exist"
   end
 
   @doc """
