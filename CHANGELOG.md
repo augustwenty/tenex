@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.4](https://github.com/augustwenty/tenex/compare/v1.0.3...v1.0.4) (2025-03-14)
+
+
+### Bug Fixes
+
+* Credo - reducing nested complexity ([8462e97](https://github.com/augustwenty/tenex/commit/8462e97045fc6defd0337ac9463e3c878ce5413f))
+* Credo updates in order to reduce complexity ([df669d5](https://github.com/augustwenty/tenex/commit/df669d58590ec6615c76296d1591ffa6b3ecf363))
+* refactoring to remove single 'with' statements ([28d1041](https://github.com/augustwenty/tenex/commit/28d10413dcf6c47cc201abdc8d8b907ffb50b80d))
+* removing codeclimate config... not using it ([1b4af17](https://github.com/augustwenty/tenex/commit/1b4af17d730b2d177a69af8dbc07b179438daab2))
+* running mix format ([3a06729](https://github.com/augustwenty/tenex/commit/3a067299229215646751bdb697d37e19e6162ea0))
+* updating Code of Conduct ([39df975](https://github.com/augustwenty/tenex/commit/39df975e33a4f5423cebd0a815db9e8dc530760f))
+* updating formatting ([401212d](https://github.com/augustwenty/tenex/commit/401212d40f56d3fd43e1f792d57a6bf2fbe143d4))
+
 ## [1.0.3](https://github.com/augustwenty/tenex/compare/v1.0.2...v1.0.3) (2025-03-11)
 
 
