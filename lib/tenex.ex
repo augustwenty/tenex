@@ -149,23 +149,29 @@ defmodule Tenex do
     if reserved_tenant?(tenant) do
       {:error, reserved_message(tenant)}
     else
-      sql =
-        "CREATE SCHEMA \"#{to_prefix(tenant)}\""
+      create_schema_and_execute(tenant, repo, func)
+    end
+  end
 
-      case SQL.query(repo, sql, []) do
-        {:ok, _} ->
-          case exec_func(func, tenant, repo) do
-            {:ok, _} ->
-              {:ok, tenant}
+  defp create_schema_and_execute(tenant, repo, func) do
+    sql = "CREATE SCHEMA \"#{to_prefix(tenant)}\""
 
-            {:error, reason} ->
-              drop(tenant, repo)
-              {:error, error_message(reason)}
-          end
+    case SQL.query(repo, sql, []) do
+      {:ok, _} -> handle_func_execution(func, tenant, repo)
+      {:error, reason} -> {:error, error_message(reason)}
+    end
+  end
 
-        {:error, reason} ->
-          {:error, error_message(reason)}
-      end
+  defp handle_func_execution(nil, tenant, _repo), do: {:ok, tenant}
+
+  defp handle_func_execution(func, tenant, repo) do
+    case exec_func(func, tenant, repo) do
+      {:ok, _} ->
+        {:ok, tenant}
+
+      {:error, reason} ->
+        drop(tenant, repo)
+        {:error, error_message(reason)}
     end
   end
 
