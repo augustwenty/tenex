@@ -154,9 +154,10 @@ defmodule Tenex do
 
       case SQL.query(repo, sql, []) do
         {:ok, _} ->
-          with {:ok, _} <- exec_func(func, tenant, repo) do
-            {:ok, tenant}
-          else
+          case exec_func(func, tenant, repo) do
+            {:ok, _} ->
+              {:ok, tenant}
+
             {:error, reason} ->
               drop(tenant, repo)
               {:error, error_message(reason)}
@@ -201,9 +202,10 @@ defmodule Tenex do
       sql =
         "DROP SCHEMA \"#{to_prefix(tenant)}\" CASCADE"
 
-      with {:ok, _} <- SQL.query(repo, sql, []) do
-        {:ok, tenant}
-      else
+      case SQL.query(repo, sql, []) do
+        {:ok, _} ->
+          {:ok, tenant}
+
         {:error, exception} ->
           {:error, error_message(exception)}
       end
