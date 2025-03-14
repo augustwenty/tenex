@@ -149,22 +149,29 @@ defmodule Tenex do
     if reserved_tenant?(tenant) do
       {:error, reserved_message(tenant)}
     else
-      sql =
-        "CREATE SCHEMA \"#{to_prefix(tenant)}\""
+      create_schema_and_execute(tenant, repo, func)
+    end
+  end
 
-      case SQL.query(repo, sql, []) do
-        {:ok, _} ->
-          with {:ok, _} <- exec_func(func, tenant, repo) do
-            {:ok, tenant}
-          else
-            {:error, reason} ->
-              drop(tenant, repo)
-              {:error, error_message(reason)}
-          end
+  defp create_schema_and_execute(tenant, repo, func) do
+    sql = "CREATE SCHEMA \"#{to_prefix(tenant)}\""
 
-        {:error, reason} ->
-          {:error, error_message(reason)}
-      end
+    case SQL.query(repo, sql, []) do
+      {:ok, _} -> handle_func_execution(func, tenant, repo)
+      {:error, reason} -> {:error, error_message(reason)}
+    end
+  end
+
+  defp handle_func_execution(nil, tenant, _repo), do: {:ok, tenant}
+
+  defp handle_func_execution(func, tenant, repo) do
+    case exec_func(func, tenant, repo) do
+      {:ok, _} ->
+        {:ok, tenant}
+
+      {:error, reason} ->
+        drop(tenant, repo)
+        {:error, error_message(reason)}
     end
   end
 
@@ -201,9 +208,10 @@ defmodule Tenex do
       sql =
         "DROP SCHEMA \"#{to_prefix(tenant)}\" CASCADE"
 
-      with {:ok, _} <- SQL.query(repo, sql, []) do
-        {:ok, tenant}
-      else
+      case SQL.query(repo, sql, []) do
+        {:ok, _} ->
+          {:ok, tenant}
+
         {:error, exception} ->
           {:error, error_message(exception)}
       end
