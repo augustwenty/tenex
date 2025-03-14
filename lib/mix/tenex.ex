@@ -105,17 +105,21 @@ defmodule Mix.Tenex do
       Enum.flat_map(Tenex.all(repo), fn tenant ->
         opts = Keyword.put(opts, :prefix, tenant)
 
-        if function_exported?(pool, :unboxed_run, 2) do
-          pool.unboxed_run(repo, fn -> migrator.(repo, path, direction, opts) end)
-        else
-          migrator.(repo, path, direction, opts)
-        end
+        run_migration(pool, repo, migrator, path, direction, opts)
       end)
 
     Code.compiler_options(ignore_module_conflict: false)
 
     pid && repo.stop()
     restart_apps_if_migrated(apps, migrated)
+  end
+
+  defp run_migration(pool, repo, migrator, path, direction, opts) do
+    if function_exported?(pool, :unboxed_run, 2) do
+      pool.unboxed_run(repo, fn -> migrator.(repo, path, direction, opts) end)
+    else
+      migrator.(repo, path, direction, opts)
+    end
   end
 
   @doc """
