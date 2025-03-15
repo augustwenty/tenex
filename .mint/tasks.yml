@@ -1,0 +1,62 @@
+on:
+  github:
+    push:
+      init:
+        commit-sha: ${{ event.git.sha }}
+
+tasks:
+  - key: packages
+    run: |
+      sudo apt-get update
+      sudo apt-get install -y postgresql-client
+      sudo apt-get clean
+
+  - key: code
+    call: mint/git-clone 1.6.1
+    with:
+      repository: https://github.com/augustwenty/tenex.git
+      ref: ${{ init.commit-sha }}
+      github-access-token: ${{ github.token }}
+
+  - key: erlang
+    call: mint/install-erlang 1.0.0
+    with:
+      erlang-version: "26.2.2"
+
+  - key: elixir
+    use: erlang
+    call: mint/install-elixir 1.0.2
+    with:
+      elixir-version: "1.17.2"
+
+  - key: deps
+    use: [code, packages, erlang, elixir]
+    run: mix do deps.get, deps.compile
+    filter:
+      - mix.lock
+      - mix.exs
+    env:
+      MIX_ENV: test
+
+  - key: compile
+    use: [packages, deps]
+    run: mix compile
+    env:
+      MIX_ENV: test
+
+  - key: test
+    docker: true
+    background-processes:
+      - key: postgres
+        run: |
+          docker run -p '5432:5432' \
+            -e POSTGRES_USER=postgres \
+            -e POSTGRES_PASSWORD=postgres \
+            -e POSTGRES_DB=splashlight_dev \
+            postgres
+        ready-check: pg_isready -U postgres -h localhost -p 5432
+    run: |
+      export PGUSER=postgres
+      export PGPASSWORD=postgres
+      export PGHOST=localhost
+      mix test
