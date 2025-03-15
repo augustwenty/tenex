@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.5](https://github.com/augustwenty/tenex/compare/v1.0.4...v1.0.5) (2025-03-15)
+
+
+### Bug Fixes
+
+* adding postgres back to the mint config ([bc3ccaa](https://github.com/augustwenty/tenex/commit/bc3ccaafd6fa46f39b9e299ea117347e6a8d3f27))
+* adding rwx mint to repo ([a30d31a](https://github.com/augustwenty/tenex/commit/a30d31a3f4b7d6a63e2d2b024ad697a2a702fac1))
+* adding rwx mint to repo ([b16be97](https://github.com/augustwenty/tenex/commit/b16be9764dc45797767623ec5c5c440bade2a1a5))
+
 ## [1.0.4](https://github.com/augustwenty/tenex/compare/v1.0.3...v1.0.4) (2025-03-14)
 
 
