@@ -44,7 +44,29 @@ tasks:
     env:
       MIX_ENV: test
 
+  - key: db
+    use: compile
+    docker: preserve-data
+    background-processes:
+      - key: postgres
+        run: |
+          docker run -p '5432:5432' \
+            -e POSTGRES_USER=postgres \
+            -e POSTGRES_PASSWORD=postgres \
+            -e POSTGRES_DB=splashlight_dev \
+            postgres
+        ready-check: pg_isready -U postgres -h localhost -p 5432
+    run: |
+      export PGUSER=postgres
+      export PGPASSWORD=postgres
+      export PGHOST=localhost
+      mix ecto.create
+      mix ecto.migrate
+    env:
+      MIX_ENV: test
+
   - key: test
+    use: db
     docker: true
     background-processes:
       - key: postgres
