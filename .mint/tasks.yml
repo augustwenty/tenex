@@ -1,6 +1,6 @@
 on:
   github:
-    push:
+    pull_request:
       init:
         commit-sha: ${{ event.git.sha }}
 
