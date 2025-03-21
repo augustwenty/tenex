@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.6](https://github.com/augustwenty/tenex/compare/v1.0.5...v1.0.6) (2025-03-21)
+
+
+### Bug Fixes
+
+* fixing syntax error ([7ac0054](https://github.com/augustwenty/tenex/commit/7ac0054ee1a5c454a7ff85d22ad976a2fb31733a))
+* updating to only run on PR ([2250d8e](https://github.com/augustwenty/tenex/commit/2250d8e964ba567255eb6014ee8eb24b2b501e7f))
+* updating to only run on PR ([3653dcf](https://github.com/augustwenty/tenex/commit/3653dcf24a018fd9cb0df8f3671c0ed510c3b50a))
+
 ## [1.0.5](https://github.com/augustwenty/tenex/compare/v1.0.4...v1.0.5) (2025-03-15)
 
 
