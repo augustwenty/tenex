@@ -17,7 +17,7 @@ defmodule Tenex.Mixfile do
       name: "Tenex",
       package: package(),
       preferred_cli_env: preferred_cli_env(),
-      source_url: "https://github.com/augustwenty/tenex"
+      source_url: "https://github.com/augustwenty/tenex",
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
       version: @version,
