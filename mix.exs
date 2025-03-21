@@ -6,21 +6,21 @@ defmodule Tenex.Mixfile do
 
   def project do
     [
-      app: :tenex,
-      version: @version,
-      elixir: "~> 1.17",
-      description: "Build multitenant applications on top of Ecto.",
-      package: package(),
-      elixirc_paths: elixirc_paths(Mix.env()),
-      build_embedded: Mix.env() == :prod,
-      start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: preferred_cli_env(),
+      app: :tenex,
+      build_embedded: Mix.env() == :prod,
       deps: deps(),
+      description: "Build multitenant applications on top of Ecto.",
       docs: docs(),
+      elixir: "~> 1.17",
+      elixirc_paths: elixirc_paths(Mix.env()),
       name: "Tenex",
-      source_url: "https://github.com/augustwenty/tenex"
+      package: package(),
+      preferred_cli_env: preferred_cli_env(),
+      source_url: "https://github.com/augustwenty/tenex",
+      start_permanent: Mix.env() == :prod,
+      test_coverage: [tool: ExCoveralls],
+      version: @version,
     ]
   end
 
