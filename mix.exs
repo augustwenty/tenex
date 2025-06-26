@@ -53,7 +53,7 @@ defmodule Tenex.Mixfile do
       {:credo, "~> 1.0", only: [:test, :dev], optional: true, runtime: false},
       {:decimal, ">= 1.6.0"},
       {:ecto_sql, "~> 3.4"},
-      {:ex_doc, "~> 0.37.3", only: :docs, runtime: false},
+      {:ex_doc, "~> 0.38.2", only: :docs, runtime: false},
       {:excoveralls, "~> 0.0", only: :test},
       {:inch_ex, ">= 0.0.0", only: :docs},
       {:plug, "~> 1.6", optional: true},
