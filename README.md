@@ -5,7 +5,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/augustwenty/tenex/badge.svg?branch=master)](https://coveralls.io/github/augustwenty/tenex?branch=master)
 
 A simple and effective way to build multitenant applications on top of Ecto.
-
 [Documentation](https://hexdocs.pm/tenex/readme.html)
 
 Tenex leverages database data segregation techniques (such as [Postgres schemas](https://www.postgresql.org/docs/current/static/ddl-schemas.html)) to keep tenant-specific data separated, while allowing you to continue using the Ecto functions you are familiar with.
