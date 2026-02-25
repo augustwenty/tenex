@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.8](https://github.com/augustwenty/tenex/compare/v1.0.7...v1.0.8) (2026-02-25)
+
+
+### Bug Fixes
+
+* bump version to 1.0.8 ([bfab502](https://github.com/augustwenty/tenex/commit/bfab50277689392b20a18ebaef634eedd57ca84d))
+* updating_version_deploy_to_hex ([0962f13](https://github.com/augustwenty/tenex/commit/0962f13be3b4894de1cfd49a463eea8c7c240e62))
+
 ## [1.0.7](https://github.com/augustwenty/tenex/compare/v1.0.6...v1.0.7) (2025-07-03)
 
 
