@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.7](https://github.com/augustwenty/tenex/compare/v1.0.6...v1.0.7) (2025-07-03)
+
+
+### Bug Fixes
+
+* hex updates ([d577513](https://github.com/augustwenty/tenex/commit/d577513b52137f47a428dbf1cf7cbffc92ef419b))
+* update to force merge/PR ([d565701](https://github.com/augustwenty/tenex/commit/d56570107c353561c2c1eade0deda4084be3adc5))
+* update to force merge/PR ([17ccc97](https://github.com/augustwenty/tenex/commit/17ccc9772077f77703254fec0a6447580dea6589))
+
 ## [1.0.6](https://github.com/augustwenty/tenex/compare/v1.0.5...v1.0.6) (2025-03-21)
 
 
