@@ -2,7 +2,7 @@ defmodule Tenex.Mixfile do
   use Mix.Project
 
   @source_url "https://github.com/augustwenty/tenex"
-  @version "1.0.7"
+  @version "1.0.8"
 
   def project do
     [
